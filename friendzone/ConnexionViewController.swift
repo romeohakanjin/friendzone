@@ -42,21 +42,18 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         let border = CALayer()
         let width = CGFloat(1.0)
         border.borderColor = UIColor.cyan.cgColor
-        border.frame = CGRect(x: 0, y: pseudo_input.frame.size.height - width, width:  pseudo_input.frame.size.width, height: 1)
-        
+        border.frame = CGRect(x: 0, y: pseudo_input.frame.size.height - width, width:  pseudo_input.frame.size.width, height:pseudo_input.frame.height)
         border.borderWidth = width
         pseudo_input.layer.addSublayer(border)
         pseudo_input.layer.masksToBounds = true
-        pseudo_input.borderStyle = UITextBorderStyle.none
         
         let border_pass = CALayer()
         let width_pass = CGFloat(1.0)
         border_pass.borderColor = UIColor.cyan.cgColor
         border_pass.frame = CGRect(x: 0, y: password_input.frame.size.height - width_pass, width:  password_input.frame.size.width, height: 1)
-        
+        border_pass.borderWidth = width_pass
         password_input.layer.addSublayer(border_pass)
         password_input.layer.masksToBounds = true
-        password_input.borderStyle = UITextBorderStyle.none
         
         //Enlever le clavier
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
