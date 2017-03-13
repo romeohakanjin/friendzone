@@ -39,21 +39,8 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         backgroundImage.addSubview(blurEffectView)
         
         //Deisgn textfield
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.cyan.cgColor
-        border.frame = CGRect(x: 0, y: pseudo_input.frame.size.height - width, width:  pseudo_input.frame.size.width, height:pseudo_input.frame.height)
-        border.borderWidth = width
-        pseudo_input.layer.addSublayer(border)
-        pseudo_input.layer.masksToBounds = true
-        
-        let border_pass = CALayer()
-        let width_pass = CGFloat(1.0)
-        border_pass.borderColor = UIColor.cyan.cgColor
-        border_pass.frame = CGRect(x: 0, y: password_input.frame.size.height - width_pass, width:  password_input.frame.size.width, height: 1)
-        border_pass.borderWidth = width_pass
-        password_input.layer.addSublayer(border_pass)
-        password_input.layer.masksToBounds = true
+        bottomBorder(textField: pseudo_input)
+        bottomBorder(textField: password_input)
         
         //Enlever le clavier
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -73,6 +60,18 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         
         //pseudo_input.text = "try@me.com"
         //password_input.text = "test"
+    }
+    
+    func bottomBorder(textField : UITextField)
+    {
+        //Deisgn textfield
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.cyan.cgColor
+        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height:textField.frame.height)
+        border.borderWidth = width
+        textField.layer.addSublayer(border)
+        textField.layer.masksToBounds = true
     }
     
     func dismissKeyboard() {
