@@ -18,7 +18,7 @@ class ProfilTableViewController: UITableViewController {
     @IBOutlet var updateBtn: UIButton!
     
     var connect_id = ""
-    
+    //test
     override func viewDidLoad() {
         super.viewDidLoad()
         if let name = self.config.defaults.string(forKey: "name")
