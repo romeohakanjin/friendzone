@@ -23,7 +23,7 @@ class ProfilTableViewController: UITableViewController {
         super.viewDidLoad()
         if let name = self.config.defaults.string(forKey: "name")
         {
-            connect_id = name
+            self.connect_id = name
         }
         self.loadProfil()
     }
@@ -43,8 +43,10 @@ class ProfilTableViewController: UITableViewController {
         
     }
     public func loadProfil(){
-        //let urlApi = "\(config.url)action=user_profil_ios&values[id]=\(config.connected_user_id)"
-        let urlApi = "\(config.url)action=user_profil_ios&values[id]=5"
+		print(self.connect_id)
+		print("fdé")
+        let urlApi = "\(config.url)action=user_profil_ios&values[id]=\(self.connect_id)"
+        //let urlApi = "\(config.url)action=user_profil_ios&values[id]=5"
         if let url = URL(string: urlApi){
             URLSession.shared.dataTask(with: url){(myData, response, error) in
                 guard let myData = myData, error == nil else{
