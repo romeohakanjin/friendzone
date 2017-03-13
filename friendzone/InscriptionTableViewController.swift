@@ -24,6 +24,17 @@ class InscriptionTableViewController: UITableViewController {
     var success = false
     var connect_id = ""
     
+    @IBAction func retour_action(_ sender: Any)
+    {
+        //Redirection
+        DispatchQueue.main.async {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "Connexion_ID") as UIViewController
+            self.present(nextViewController, animated:true, completion:nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,16 +42,26 @@ class InscriptionTableViewController: UITableViewController {
         tableView.alwaysBounceVertical = false;
         
         //Navigation bar invisible
-        navigationBarTitle.setBackgroundImage(UIImage(), for: .default)
-        navigationBarTitle.shadowImage = UIImage()
-        navigationBarTitle.isTranslucent = true
-        
+//        navigationBarTitle.setBackgroundImage(UIImage(), for: .default)
+//        navigationBarTitle.shadowImage = UIImage()
+//        navigationBarTitle.isTranslucent = true
+//        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = tableV.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableV.insertSubview(blurEffectView, at: 0)
         
+        //Enlever le clavier
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let clavier = UIToolbar(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30)))
+        clavier.barStyle = UIBarStyle.default
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     @IBAction func signIn(_ sender: Any) {
@@ -79,6 +100,7 @@ class InscriptionTableViewController: UITableViewController {
                         let error_code = json["error"] as! String
                         let id_user_inscrip = json["id"] as! String
                         self.connect_id = id_user_inscrip
+                        self.config.defaults.set(id_user_inscrip, forKey: "name")
                         
                         print(error_code)
                         print(id_user_inscrip)

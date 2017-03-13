@@ -20,6 +20,7 @@
 		06C8E6241E6D545A00ACE23C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C8E6221E6D545A00ACE23C /* Main.storyboard */; };
 		06C8E6261E6D545A00ACE23C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06C8E6251E6D545A00ACE23C /* Assets.xcassets */; };
 		06C8E6291E6D545A00ACE23C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C8E6271E6D545A00ACE23C /* LaunchScreen.storyboard */; };
+		F9D96B2E1E769C0000C679B0 /* DesignBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D96B2D1E769C0000C679B0 /* DesignBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		06C8E6251E6D545A00ACE23C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06C8E6281E6D545A00ACE23C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06C8E62A1E6D545A00ACE23C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9D96B2D1E769C0000C679B0 /* DesignBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				06B546A91E6D6D9F007D6745 /* ConnexionViewController.swift */,
 				06B546A71E6D6A87007D6745 /* Config.swift */,
 				06B5469F1E6D5E5E007D6745 /* DataBaseTableAmis.swift */,
+				F9D96B2D1E769C0000C679B0 /* DesignBarViewController.swift */,
 				06B546AD1E6D9953007D6745 /* InscriptionTableViewController.swift */,
 				06B5469D1E6D5DFD007D6745 /* ListeAmisTableViewController.swift */,
 				06B546961E6D56E5007D6745 /* MapViewController.swift */,
@@ -181,6 +184,7 @@
 				06B546AE1E6D9953007D6745 /* InscriptionTableViewController.swift in Sources */,
 				06B546A01E6D5E5E007D6745 /* DataBaseTableAmis.swift in Sources */,
 				06B5469E1E6D5DFD007D6745 /* ListeAmisTableViewController.swift in Sources */,
+				F9D96B2E1E769C0000C679B0 /* DesignBarViewController.swift in Sources */,
 				06B546A21E6D6151007D6745 /* AddAmiTableViewController.swift in Sources */,
 				06B546A81E6D6A87007D6745 /* Config.swift in Sources */,
 				06B546971E6D56E5007D6745 /* MapViewController.swift in Sources */,

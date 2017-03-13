@@ -61,6 +61,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             
             for marker in endroits
             {
+                let annotation = MKPointAnnotation()
                 annotation.title = marker["title"] as? String
                 annotation.coordinate = CLLocationCoordinate2D(latitude: marker["latitude"] as! Double, longitude: marker["longitude"] as! Double)
                 

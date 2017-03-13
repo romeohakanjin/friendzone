@@ -26,9 +26,20 @@ class ProfilTableViewController: UITableViewController {
             connect_id = name
         }
         self.loadProfil()
+        
+        //Enlever le clavier
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let clavier = UIToolbar(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30)))
+        clavier.barStyle = UIBarStyle.default
+        view.addGestureRecognizer(tap)
     }
     
-        
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     @IBAction func updateClick(_ sender: Any) {
       
         //Penser à faire le contrôle de saisis
@@ -43,8 +54,8 @@ class ProfilTableViewController: UITableViewController {
         
     }
     public func loadProfil(){
-        //let urlApi = "\(config.url)action=user_profil_ios&values[id]=\(config.connected_user_id)"
-        let urlApi = "\(config.url)action=user_profil_ios&values[id]=5"
+        let urlApi = "\(config.url)action=user_profil_ios&values[id]=\(self.connect_id)"
+//        let urlApi = "\(config.url)action=user_profil_ios&values[id]=5"
         if let url = URL(string: urlApi){
             URLSession.shared.dataTask(with: url){(myData, response, error) in
                 guard let myData = myData, error == nil else{
