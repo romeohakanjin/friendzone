@@ -16,6 +16,9 @@ class InscriptionTableViewController: UITableViewController {
     @IBOutlet var password_input: UITextField!
     @IBOutlet var signinBtn: UIButton!
     
+    @IBOutlet weak var navigationBarTitle: UINavigationBar!
+    @IBOutlet var tableV: UITableView!
+    
     var config = Config()
     
     var success = false
@@ -23,6 +26,21 @@ class InscriptionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background_sd"))
+        tableView.alwaysBounceVertical = false;
+        
+        //Navigation bar invisible
+        navigationBarTitle.setBackgroundImage(UIImage(), for: .default)
+        navigationBarTitle.shadowImage = UIImage()
+        navigationBarTitle.isTranslucent = true
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = tableV.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tableV.insertSubview(blurEffectView, at: 0)
+        
     }
 
     @IBAction func signIn(_ sender: Any) {
@@ -46,7 +64,6 @@ class InscriptionTableViewController: UITableViewController {
         {
             connect_id = name
         }
-         //let backgroundImage = UIImage(named: <#T##String#>)
         
         let urlApi = "\(config.url)action=inscription_ios&values[nom]=testnom&values[prenom]=testprenom&values[mdp]=\(Password)&values[tel]=\(Phone)&values[pseudo]=\(Pseudo)&values[mail]=\(Email)"
         if let url =  URL(string: urlApi){
@@ -71,6 +88,13 @@ class InscriptionTableViewController: UITableViewController {
                         if(error_code == "ok"){
                             self.success = true
                             print("OK REDIRECTION")
+							DispatchQueue.main.async {
+								let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+								
+								let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainStoryboard_ID") as UIViewController
+								self.present(nextViewController, animated:true, completion:nil)
+							}
+
                         }
                         else if(error_code == "error_mail"){
                             self.success = false

@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class ConnexionViewController: UIViewController {
+class ConnexionViewController: UIViewController, UITextFieldDelegate {
 
     var config = Config()
     
@@ -17,6 +17,7 @@ class ConnexionViewController: UIViewController {
     @IBOutlet weak var pseudo_input: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     var login_session:String = ""
     var success = false
     var connect_id = ""
@@ -25,14 +26,40 @@ class ConnexionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let name = self.config.defaults.string(forKey: "name")
-        {
-            connect_id = name
-        }
+        //Enleve une clé du dico
+        config.defaults.removeObject(forKey: "name")
+        print(config.defaults.dictionaryRepresentation().keys.count)
         
-        //Looks for single or multiple taps.
+        //Flou
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.9
+        blurEffectView.frame = backgroundImage.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundImage.addSubview(blurEffectView)
+        
+        //Deisgn textfield
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = UIColor.darkGray.cgColor
+        border.frame = CGRect(x: 0, y: pseudo_input.frame.size.height - width, width:  pseudo_input.frame.size.width, height: pseudo_input.frame.size.height)
+        
+        border.borderWidth = width
+        pseudo_input.layer.addSublayer(border)
+        pseudo_input.layer.masksToBounds = true
+        
+        //Enlever le clavier
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let clavier = UIToolbar(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30)))
+        clavier.barStyle = UIBarStyle.default
         
+        clavier.items = [
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "OK", style: UIBarButtonItemStyle.plain, target: self, action: "dismissKeyboard")
+        ]
+        clavier.sizeToFit()
+        pseudo_input.inputAccessoryView = clavier
+        password_input.inputAccessoryView = clavier
         
         view.addGestureRecognizer(tap)
         
@@ -68,8 +95,7 @@ class ConnexionViewController: UIViewController {
             print("NO CONNECTION")
         }
     }
-    
-    
+
     public func loadData(Pseudo : String, Password : String) ->Bool
     {
         let urlApi = "\(config.url)action=connexion_ios&values[pseudo]=\(Pseudo)&values[mdp]=\(Password)"
@@ -90,6 +116,7 @@ class ConnexionViewController: UIViewController {
                             for value in item{
                                 let id_user = value.value as! String
                                 print(id_user)
+                                print("LALALALA ICI ICI ICI ICI LALALALA")
                                 if(id_user != ""){
                                     
                                     self.config.defaults.set(id_user, forKey: "name")
