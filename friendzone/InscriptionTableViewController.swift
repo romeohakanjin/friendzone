@@ -79,7 +79,8 @@ class InscriptionTableViewController: UITableViewController {
                         let error_code = json["error"] as! String
                         let id_user_inscrip = json["id"] as! String
                         self.connect_id = id_user_inscrip
-                        
+						self.config.defaults.set(id_user_inscrip, forKey: "name")
+
                         print(error_code)
                         print(id_user_inscrip)
                         print(self.connect_id)
