@@ -43,6 +43,7 @@ class DataBaseTableAmis: NSObject {
         let store = CNContactStore()
         var requete = String()
         self.listC.removeAll()
+        self.listA.removeAll()
         
         store.requestAccess(for: .contacts, completionHandler: {
             
@@ -100,7 +101,10 @@ class DataBaseTableAmis: NSObject {
                                     
                                     let i = ItemTableContact()
                                     
+                                    let imageName = "imgdefault.png"
+                                    i.img = UIImage(named: imageName)!
                                     
+
                                     
                                     if let item = item["nom_user"]
                                     {
@@ -139,12 +143,6 @@ class DataBaseTableAmis: NSObject {
                                             } catch let error {
                                                 print("Fetch contact error: \(error)")
                                             }
-                                            
-                                            
-                                            
-                                            let imageName = "imgdefault.png"
-                                            i.img = UIImage(named: imageName)!
-                                            
                                             
                                             for contact in cnContacts {
                                                 
@@ -222,6 +220,8 @@ class DataBaseTableAmis: NSObject {
         
         let store = CNContactStore()
         self.listA.removeAll()
+        self.listC.removeAll()
+        
         let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=amis_liste&values[id]=\(self.id_co)"
         
         if let url = URL(string: url){
@@ -242,6 +242,11 @@ class DataBaseTableAmis: NSObject {
                             for item in feed {
                                 
                                 let i = ItemTableAmis()
+                                
+                                let imageName = "imgdefault.png"
+                                i.img = UIImage(named: imageName)!
+                                
+
                                 
                                 if let item = item["nom_user"]
                                 {
@@ -278,10 +283,6 @@ class DataBaseTableAmis: NSObject {
                                         } catch let error {
                                             print("Fetch contact error: \(error)")
                                         }
-                                        
-                                        let imageName = "imgdefault.png"
-                                        i.img = UIImage(named: imageName)!
-                                        
                                         
                                         for contact in cnContacts {
                                             
