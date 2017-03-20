@@ -57,7 +57,6 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         
         view.addGestureRecognizer(tap)
         
-        //
         
         
         //pseudo_input.text = "try@me.com"
@@ -106,6 +105,7 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
 
     public func loadData(Pseudo : String, Password : String) ->Bool
     {
+        
         let urlApi = "\(config.url)action=connexion_ios&values[pseudo]=\(Pseudo)&values[mdp]=\(Password)"
         print(urlApi)
         if let url =  URL(string: urlApi){
@@ -119,14 +119,12 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 do{
-                    let root = try JSONSerialization.jsonObject(with: myData, options: .allowFragments) as? [[String: AnyObject]]
-                    
-                    if let json = root {
+                    let root = try JSONSerialization.jsonObject(with: myData, options: .allowFragments)
+                    if let json = root as? [[String: AnyObject]]{
                         for item in json{
                             for value in item{
                                 let id_user = value.value as! String
                                 print(id_user)
-                                print("LALALALA ICI ICI ICI ICI LALALALA")
                                 if(id_user != ""){
                                     
                                     self.config.defaults.set(id_user, forKey: "name")
