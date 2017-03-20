@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "eJwNyDsOAiEUAMC7cABAWH57gK3sLCwJAQIkuzwCz0bj3XXK-ZDXPMlOKuJYO2OprQgz0YUwQ8m0AJQzh9EWjXCxgBhivXLHxYTYtOTS2k0ZwZ3Vhgmrb__gzknDpRJGsWO23NMbevZ3KOAfh3_WhpmOXsj3B5MgKTo._QXqup4ztP-hv62HI0t5Q5E-ags.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "eJwNyDsOAiEUAMC7cABAWH57gK3sLCwJAQIkuzwCz0bj3XXK-ZDXPMlOKuJYO2OprQgz0YUwQ8m0AJQzh9EWjXCxgBhivXLHxYTYtOTS2k0ZwZ3Vhgmrb__gzknDpRJGsWO23NMbevZ3KOAfh3_WhpmOXsj3B5MgKTo._QXqup4ztP-hv62HI0t5Q5E-ags-1.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "eJwNyDsOAiEUAMC7cABAWH57gK3sLCwJAQIkuzwCz0bj3XXK-ZDXPMlOKuJYO2OprQgz0YUwQ8m0AJQzh9EWjXCxgBhivXLHxYTYtOTS2k0ZwZ3Vhgmrb__gzknDpRJGsWO23NMbevZ3KOAfh3_WhpmOXsj3B5MgKTo._QXqup4ztP-hv62HI0t5Q5E-ags-2.png",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
