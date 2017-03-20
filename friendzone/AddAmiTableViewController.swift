@@ -50,6 +50,11 @@ class AddAmiTableViewController: UITableViewController, DataBaseDelegateTableAmi
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        data.delegate = self
+        data.startRequeteGetURLContact()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

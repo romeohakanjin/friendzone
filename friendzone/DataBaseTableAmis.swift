@@ -42,7 +42,6 @@ class DataBaseTableAmis: NSObject {
         
         let store = CNContactStore()
         var requete = String()
-        self.listA.removeAll()
         self.listC.removeAll()
         
         store.requestAccess(for: .contacts, completionHandler: {
@@ -199,7 +198,7 @@ class DataBaseTableAmis: NSObject {
                         }
                         
                     }catch{
-                        print("Erreur parse")
+                       self.startRequeteGetURLContact()
                     }
                     
                     DispatchQueue.main.async(execute:{
@@ -223,7 +222,6 @@ class DataBaseTableAmis: NSObject {
         
         let store = CNContactStore()
         self.listA.removeAll()
-        self.listC.removeAll()
         let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=amis_liste&values[id]=\(self.id_co)"
         
         if let url = URL(string: url){
@@ -344,7 +342,7 @@ class DataBaseTableAmis: NSObject {
                     }
                     
                 }catch{
-                    print("Erreur parse")
+                    self.startRequeteGetURLAmis()
                 }
                 
                 DispatchQueue.main.async(execute:{

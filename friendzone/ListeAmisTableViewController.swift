@@ -62,6 +62,11 @@ class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTable
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        data.delegate = self
+        data.startRequeteGetURLAmis()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -91,6 +96,7 @@ class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTable
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+       
         let nom = data.listA[indexPath.row].nom
         let nb = data.listA[indexPath.row].id
         let par = data.listA[indexPath.row].par
