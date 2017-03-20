@@ -53,18 +53,12 @@ class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTable
     }
     
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        data.delegate = self
-        data.startRequeteGetURLAmis()
-        
-    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         data.delegate = self
         data.startRequeteGetURLAmis()
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

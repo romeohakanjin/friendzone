@@ -42,17 +42,12 @@ class AddAmiTableViewController: UITableViewController, DataBaseDelegateTableAmi
         tableView.reloadData()
     }
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        data.delegate = self
-        data.startRequeteGetURLContact()
-        
-    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         data.delegate = self
         data.startRequeteGetURLContact()
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
