@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="x37-Yp-CpT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -28,7 +28,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="first" selectedImage="first" id="hhT-Lb-tOT"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map_icon" id="hhT-Lb-tOT"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="Ito-7u-Or7" id="lyF-hW-FuL"/>
@@ -73,18 +73,18 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qSQ-Ge-nmB" id="mWe-RX-gXa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fs4-Lm-4iL">
-                                            <rect key="frame" x="46" y="4" width="34" height="21"/>
+                                            <rect key="frame" x="46" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WcN-1R-aF0">
-                                            <rect key="frame" x="46" y="25" width="44" height="15"/>
+                                            <rect key="frame" x="46" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -123,18 +123,18 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u61-te-9kR" id="T7i-Bx-hWD">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bEd-wj-TMN">
-                                            <rect key="frame" x="46" y="4" width="34" height="21"/>
+                                            <rect key="frame" x="46" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Pl-Bm-Zb7">
-                                            <rect key="frame" x="46" y="25" width="44" height="15"/>
+                                            <rect key="frame" x="46" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -160,11 +160,11 @@
             </objects>
             <point key="canvasLocation" x="4693.6000000000004" y="563.56821589205401"/>
         </scene>
-        <!--Deconnexion View Controller-->
+        <!--Déconnexion-->
         <scene sceneID="pjG-MB-Oyx">
             <objects>
                 <navigationController id="Zfd-SK-NA5" customClass="DeconnexionViewController" customModule="friendzone" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="Awg-6p-vik"/>
+                    <tabBarItem key="tabBarItem" title="Déconnexion" image="logout_icon" id="Awg-6p-vik"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UQs-dR-sWR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -174,11 +174,11 @@
             </objects>
             <point key="canvasLocation" x="3002" y="895"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Ajout ami-->
         <scene sceneID="tkZ-T6-jxL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="awf-Gs-UP7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="yaR-jC-aIV"/>
+                    <tabBarItem key="tabBarItem" title="Ajout ami" image="addAmi_icon" id="yaR-jC-aIV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nXH-XH-ybX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -193,11 +193,11 @@
             </objects>
             <point key="canvasLocation" x="3794.4000000000001" y="563.56821589205401"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Liste contacts-->
         <scene sceneID="GGO-eS-6ar">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VIZ-oX-naV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" selectedImage="first" systemItem="bookmarks" id="M74-zT-4cb"/>
+                    <tabBarItem key="tabBarItem" title="Liste contacts" image="lstContat_icon" id="M74-zT-4cb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t0Y-Jg-UqR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -472,11 +472,11 @@
             </objects>
             <point key="canvasLocation" x="4794.3999999999996" y="-287.40629685157421"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Profil-->
         <scene sceneID="DzA-xd-rKz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xmY-Ka-dzi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="nWQ-95-eGy"/>
+                    <tabBarItem key="tabBarItem" title="Profil" image="profil_icon" id="nWQ-95-eGy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ujC-rU-idb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -681,7 +681,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dSL-J1-tLf" customClass="DesignBarViewController" customModule="friendzone" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="P26-RZ-G80" userLabel="Navigation Bar Header">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="P26-RZ-G80" userLabel="Navigation Bar Header">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
@@ -703,7 +703,11 @@
         <image name="Image" width="16" height="16"/>
         <image name="Logo" width="600" height="600"/>
         <image name="Logo_login" width="150" height="150"/>
+        <image name="addAmi_icon" width="16" height="16"/>
         <image name="background_sd" width="800" height="533"/>
-        <image name="first" width="30" height="30"/>
+        <image name="logout_icon" width="16" height="16"/>
+        <image name="lstContat_icon" width="16" height="16"/>
+        <image name="map_icon" width="16" height="16"/>
+        <image name="profil_icon" width="16" height="16"/>
     </resources>
 </document>
