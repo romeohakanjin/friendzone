@@ -12,8 +12,8 @@ import SystemConfiguration
 
 class Config: NSObject {
 	
-	//let url : String = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php?fichier=users&"
-    let url : String = "http://friendzone.epizy.com/api/api.php?fichier=users&"
+	let url : String = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php?fichier=users&"
+    //let url : String = "http://friendzone.epizy.com/api/api.php?fichier=users&"
 
     let defaults = UserDefaults.standard
     

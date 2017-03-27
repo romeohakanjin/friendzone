@@ -56,6 +56,10 @@ class DataBaseTableAmis: NSObject{
             }
             
             for contact in cnContacts {
+                if(contact.phoneNumbers.isEmpty)
+                {
+                    continue
+                }
                 let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
                 
                 /*if contact.imageDataAvailable {
@@ -142,7 +146,10 @@ class DataBaseTableAmis: NSObject{
 
                                             
                                             for contact in cnContacts {
-                                                
+                                                if(contact.phoneNumbers.isEmpty)
+                                                {
+                                                    continue
+                                                }
                                                 let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
                                                 
                                                 
