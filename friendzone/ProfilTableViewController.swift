@@ -50,6 +50,7 @@ class ProfilTableViewController: UITableViewController {
         let phone : String = phone_input.text!
         let mail : String = email_input.text!
         
+        
         if(updateBtn.currentTitle == "Modifier"){
             //Débloquer la modification des champs quand on arrive sur la page
             self.name_input.isUserInteractionEnabled = true
@@ -59,7 +60,15 @@ class ProfilTableViewController: UITableViewController {
             self.pseudo_input.isUserInteractionEnabled = true
             updateBtn.setTitle("Enregistrer", for: .normal)
         }else if(updateBtn.currentTitle == "Enregistrer"){
-            updateProfil(Name : name, First_Name : first_name, Pseudo : pseudo, Phone : phone, Mail : mail)
+            if(isNameValid(Name : name) && isPseudoValid(Pseudo: pseudo) && isNameValid(Name : first_name)  && isPhoneValid(Phone: phone) && isEmailValid(Email: mail)){
+                updateProfil(Name : name, First_Name : first_name, Pseudo : pseudo, Phone : phone, Mail : mail)
+            }else{
+                print("erreur de saisie")
+                DispatchQueue.main.async {
+                    self.alertPrint(TitleController: "Echec", MsgController: "Merci de respecter les conventions! [Les noms/prénoms ne peuvent pas contenir d'accent]", Titlealt: "Fermer", TableView: self)
+                }
+
+            }
         }
     }
     
@@ -161,6 +170,30 @@ class ProfilTableViewController: UITableViewController {
         
         TableView.present(alert, animated: true, completion: nil)
         
+    }
+    
+    func isNameValid(Name:String) -> Bool {
+        let RegEx = "^[a-zA-Z]+([\\-']?[a-zA-Z]+[\\-']?[a-zA-Z]+[\\-']?)[a-zA-Z]+$"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Name)
+    }
+    
+    func isEmailValid(Email:String) -> Bool {
+        let RegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Email)
+    }
+    
+    func isPseudoValid(Pseudo:String) -> Bool {
+        let RegEx = "^[a-zA-Z0-9]+([\\-'_]?[a-zA-Z0-9]+[\\-'_]?[a-zA-Z0-9]+[\\-'_]?)[a-zA-Z0-9]+$"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Pseudo)
+    }
+    
+    func isPhoneValid(Phone: String) -> Bool {
+        let RegEx = "(0|\\+33|0033)[1-9][0-9]{8}"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Phone)
     }
     
 }
