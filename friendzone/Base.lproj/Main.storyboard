@@ -279,7 +279,7 @@
                                 <color key="tintColor" red="0.48904569990028446" green="0.49554472250924758" blue="0.50070838730569944" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Pas de compte ? Sincrire ici"/>
                                 <connections>
-                                    <segue destination="dSL-J1-tLf" kind="showDetail" id="6jB-4o-Mmq"/>
+                                    <segue destination="dSL-J1-tLf" kind="push" id="6jB-4o-Mmq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -681,6 +681,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dSL-J1-tLf" customClass="DesignBarViewController" customModule="friendzone" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="TEZ-UT-Fgp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="P26-RZ-G80" userLabel="Navigation Bar Header">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
