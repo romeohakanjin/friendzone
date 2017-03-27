@@ -279,7 +279,7 @@
                                 <color key="tintColor" red="0.48904569990028446" green="0.49554472250924758" blue="0.50070838730569944" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Pas de compte ? Sincrire ici"/>
                                 <connections>
-                                    <segue destination="dSL-J1-tLf" kind="presentation" id="6jB-4o-Mmq"/>
+                                    <segue destination="dSL-J1-tLf" kind="presentation" modalTransitionStyle="flipHorizontal" id="6jB-4o-Mmq"/>
                                 </connections>
                             </button>
                         </subviews>
