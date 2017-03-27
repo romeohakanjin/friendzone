@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="x37-Yp-CpT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -279,7 +279,7 @@
                                 <color key="tintColor" red="0.48904569990028446" green="0.49554472250924758" blue="0.50070838730569944" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Pas de compte ? Sincrire ici"/>
                                 <connections>
-                                    <segue destination="dSL-J1-tLf" kind="push" id="6jB-4o-Mmq"/>
+                                    <segue destination="dSL-J1-tLf" kind="presentation" id="6jB-4o-Mmq"/>
                                 </connections>
                             </button>
                         </subviews>
