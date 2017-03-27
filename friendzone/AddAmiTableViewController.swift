@@ -42,9 +42,8 @@ class AddAmiTableViewController: UITableViewController, DataBaseDelegateTableAmi
         tableView.reloadData()
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         data.delegate = self
         data.startRequeteGetURLContact()
         tableView.reloadData()

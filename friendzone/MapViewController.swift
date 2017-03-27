@@ -25,13 +25,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     var annotation = MKPointAnnotation()
     var config = Config()
     
+    @IBOutlet weak var LabelPartage: UILabel!
+    @IBOutlet weak var btnPartage: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getPartage()
         mapView.delegate = self
         locationManager.delegate = self
         //Demande autorisation
         locationManager.requestAlwaysAuthorization()
+        
+       
         
         if let name = self.config.defaults.string(forKey: "name")
         {
@@ -190,6 +195,169 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         return renderer
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func getPartage() {
+        
+        var id_co = ""
+        
+        if let name = self.config.defaults.string(forKey: "name")
+        {
+            id_co = name
+        }
+        
+        let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=amis_liste&values[id]=\(id_co)"
+        if let url = URL(string: url){
+            URLSession.shared.dataTask(with: url) { (Mdata, res, err) in
+                
+                guard let Mdata = Mdata , err == nil else
+                {
+                    return
+                }
+                
+                do{
+                    
+                    let json = try JSONSerialization.jsonObject(with: Mdata, options: .allowFragments)
+                    var part = "1"
+                    if let root = json as? [String : AnyObject]{
+                        if let feed = root["result"] as? [[String : AnyObject]]{
+                            for item in feed {
+                                
+                                if let item = item["par"]
+                                {
+                                    if item as! String == "0" {
+                                        part = "0"
+                                    }
+                                }
+                                else
+                                {
+                                    print("Other")
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                    if(part == "1"){
+                        DispatchQueue.main.async(execute:{
+                            self.LabelPartage.text = "Supprimer ma position"
+                            self.btnPartage.setOn(true, animated: true)
+                        })
+                    }else{
+                        DispatchQueue.main.async(execute:{
+                            self.LabelPartage.text = "Partager ma position"
+                            self.btnPartage.setOn(false, animated: true)
+                        })
+                    }
+                    
+                }catch{
+                    
+                }
+            }.resume()
+        }
+    }
+    
+    @IBAction func SendPart(_ sender: Any) {
+    
+        PartagePos()
+        
+    }
+    
+    public func PartagePos()
+    {
+        
+        var id_co = ""
+        var partage = ""
+
+        if(self.btnPartage.isOn){
+            partage = "1"
+        }else{
+            partage = "0"
+        }
+        
+        
+        if let name = self.config.defaults.string(forKey: "name")
+        {
+            id_co = name
+        }
+        
+        let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=Update_Share_Pos&values[par]=\(partage)&values[id]=\(id_co)"
+        
+        if let url = URL(string: url){
+                
+            URLSession.shared.dataTask(with: url) { (Mdata, res, err) in
+                    
+                guard let Mdata = Mdata , err == nil else
+                {
+                    return
+                }
+                
+                do{
+                        
+                    let json = try JSONSerialization.jsonObject(with: Mdata, options: .allowFragments)
+                        
+                    if let root = json as? [String : AnyObject]{
+                        if let feed = root["result"] as? [[String : AnyObject]]{
+                            for item in feed {
+                                
+                                if let item = item["par"]
+                                {
+                                    print("item : \(item)")
+                                }
+                                else
+                                {
+                                    print("Other")
+                                }
+                                
+                            }
+                        }
+                    }
+                        
+                }catch{
+                   
+                }
+            }.resume()
+        }
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

@@ -146,6 +146,10 @@ class DataBaseTableAmis: NSObject {
                                             
                                             for contact in cnContacts {
                                                 
+                                                if(contact.phoneNumbers.isEmpty){
+                                                    continue
+                                                }
+                                                
                                                 let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
                                                 
                                                 
@@ -286,7 +290,11 @@ class DataBaseTableAmis: NSObject {
                                         
                                         for contact in cnContacts {
                                             
-                                            let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
+                                            if(contact.phoneNumbers.isEmpty){
+                                               continue
+                                            }
+                                            
+                                             let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
                                             
                                             if nb == item as! String {
                                                 
