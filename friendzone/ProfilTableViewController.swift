@@ -11,9 +11,9 @@ import UIKit
 class ProfilTableViewController: UITableViewController {
     var config = Config()
     @IBOutlet var email_input: UITextField!
-    @IBOutlet var phone_input: UITextField!
     @IBOutlet var pseudo_input: UITextField!
     @IBOutlet var first_name_input: UITextField!
+    @IBOutlet var phone_input: UITextField!
     @IBOutlet var name_input: UITextField!
     @IBOutlet var updateBtn: UIButton!
     
@@ -25,10 +25,17 @@ class ProfilTableViewController: UITableViewController {
         {
             self.connect_id = name
         }
+        
+        //Bloquer la modification des champs quand on arrive sur la page
+        self.name_input.isUserInteractionEnabled = false
+        self.first_name_input.isUserInteractionEnabled = false
+        self.email_input.isUserInteractionEnabled = false
+        self.phone_input.isUserInteractionEnabled = false
+        self.pseudo_input.isUserInteractionEnabled = false
         self.loadProfil()
     }
     
-        
+    //Action liée au bouton Modifier
     @IBAction func updateClick(_ sender: Any) {
       
         //Penser à faire le contrôle de saisis
@@ -39,14 +46,22 @@ class ProfilTableViewController: UITableViewController {
         let phone : String = phone_input.text!
         let mail : String = email_input.text!
         
-        loadData(Name : name, First_Name : first_name, Pseudo : pseudo, Phone : phone, Mail : mail)
-        
+        if(updateBtn.currentTitle == "Modifier"){
+            //Débloquer la modification des champs quand on arrive sur la page
+            self.name_input.isUserInteractionEnabled = true
+            self.first_name_input.isUserInteractionEnabled = true
+            self.email_input.isUserInteractionEnabled = true
+            self.phone_input.isUserInteractionEnabled = true
+            self.pseudo_input.isUserInteractionEnabled = true
+            updateBtn.setTitle("Enregistrer", for: .normal)
+        }else if(updateBtn.currentTitle == "Enregistrer"){
+            updateProfil(Name : name, First_Name : first_name, Pseudo : pseudo, Phone : phone, Mail : mail)
+        }
     }
+    
+    //Permet d'afficher le profil
     public func loadProfil(){
-		print(self.connect_id)
-		print("fdé")
         let urlApi = "\(config.url)action=user_profil_ios&values[id]=\(self.connect_id)"
-        //let urlApi = "\(config.url)action=user_profil_ios&values[id]=5"
         if let url = URL(string: urlApi){
             URLSession.shared.dataTask(with: url){(myData, response, error) in
                 guard let myData = myData, error == nil else{
@@ -60,7 +75,6 @@ class ProfilTableViewController: UITableViewController {
                             if let name = item["nom"] as? String, let first_name = item["prenom"] as? String,
                                 let mail = item["mail"] as? String, let phone = item["tel"] as? String,
                                 let pseudo = item["pseudo"] as? String{
-                                
                                 //Redirection
                                 DispatchQueue.main.async {
                                     self.name_input.text = name
@@ -85,12 +99,10 @@ class ProfilTableViewController: UITableViewController {
 
     }
     
-    public func loadData(Name : String, First_Name : String, Pseudo : String, Phone : String, Mail : String){
+    //Permet de faire les modifications d'informations du profil
+    public func updateProfil(Name : String, First_Name : String, Pseudo : String, Phone : String, Mail : String){
         
         let urlApi = "\(config.url)action=update_profil_ios&values[id]=\(connect_id)&values[nom]=\(Name)&values[prenom]=\(First_Name)&values[tel]=\(Phone)&values[pseudo]=\(Pseudo)&values[mail]=\(Mail)"
-        print("API")
-        print(urlApi)
-        print("API")
         if let url =  URL(string: urlApi){
             URLSession.shared.dataTask(with: url){(myData, response, error) in
                 guard let myData = myData, error == nil else{
@@ -103,10 +115,26 @@ class ProfilTableViewController: UITableViewController {
                         for item in json{
                             //Affichage message en fonction du code erreur récupéré
                             let error_code = item.value as! String
+                            var titleAlert = ""
+                            var msgAlert = ""
                             if(error_code == "ok"){
-                                self.alertPrint(TitleController: "Succès", MsgController: "Vos informations ont bien été mis à jour", Titlealt: "Fermer", TableView: self)
+                                titleAlert = "Succès"
+                                msgAlert = "Vos informations ont bien été mis à jour"
+                                
                             }else{
-                                self.alertPrint(TitleController: "Echec", MsgController: "Une erreur est apparue. Impossible de modifier vos informations. Réessayez ultérieurement!", Titlealt: "Fermer", TableView: self)
+                                titleAlert = "Echec"
+                                msgAlert = "Une erreur est apparue. Impossible de modifier vos informations. Réessayez ultérieurement!"
+                                
+                            }
+                            DispatchQueue.main.async {
+                                self.alertPrint(TitleController: titleAlert, MsgController: msgAlert, Titlealt: "Fermer", TableView: self)
+                                self.name_input.isUserInteractionEnabled = false
+                                self.first_name_input.isUserInteractionEnabled = false
+                                self.email_input.isUserInteractionEnabled = false
+                                self.phone_input.isUserInteractionEnabled = false
+                                self.pseudo_input.isUserInteractionEnabled = false
+                                self.loadProfil()
+                                self.updateBtn.setTitle("Modifier", for: .normal)
                             }
                         }
                     }
@@ -121,6 +149,7 @@ class ProfilTableViewController: UITableViewController {
         }
     }
     
+    //Permet d'afficher un message de confirmation
     func alertPrint(TitleController: String,MsgController: String, Titlealt: String, TableView: UITableViewController) -> Void {
         
         let alert = UIAlertController(title: TitleController, message: MsgController,preferredStyle: .alert)
