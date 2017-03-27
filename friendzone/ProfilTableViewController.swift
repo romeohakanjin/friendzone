@@ -33,11 +33,15 @@ class ProfilTableViewController: UITableViewController {
         self.phone_input.isUserInteractionEnabled = false
         self.pseudo_input.isUserInteractionEnabled = false
         self.loadProfil()
+        
+        //Enlever le clavier
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
     
     //Action liée au bouton Modifier
     @IBAction func updateClick(_ sender: Any) {
-      
+        
         //Penser à faire le contrôle de saisis
         
         let name : String = name_input.text!
@@ -94,9 +98,9 @@ class ProfilTableViewController: UITableViewController {
                     print(errorCatched.localizedDescription)
                     print("end error")
                 }
-            }.resume()
+                }.resume()
         }
-
+        
     }
     
     //Permet de faire les modifications d'informations du profil
@@ -145,7 +149,7 @@ class ProfilTableViewController: UITableViewController {
                     print(errorCatched.localizedDescription)
                     print("end error")
                 }
-            }.resume()
+                }.resume()
         }
     }
     

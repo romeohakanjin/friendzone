@@ -39,14 +39,8 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         backgroundImage.addSubview(blurEffectView)
         
         //Deisgn textfield
-        let border = CALayer()
-        let width = CGFloat(2.0)
-        border.borderColor = UIColor.darkGray.cgColor
-        border.frame = CGRect(x: 0, y: pseudo_input.frame.size.height - width, width:  pseudo_input.frame.size.width, height: pseudo_input.frame.size.height)
-        
-        border.borderWidth = width
-        pseudo_input.layer.addSublayer(border)
-        pseudo_input.layer.masksToBounds = true
+        bottomBorder(textField: pseudo_input)
+        bottomBorder(textField: password_input)
         
         //Enlever le clavier
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -64,8 +58,21 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         
         
+        
         //pseudo_input.text = "try@me.com"
         //password_input.text = "test"
+    }
+    
+    func bottomBorder(textField : UITextField)
+    {
+        //Deisgn textfield
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.cyan.cgColor
+        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height:textField.frame.height)
+        border.borderWidth = width
+        textField.layer.addSublayer(border)
+        textField.layer.masksToBounds = true
     }
     
     func dismissKeyboard() {
@@ -98,7 +105,9 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
 
     public func loadData(Pseudo : String, Password : String) ->Bool
     {
+        
         let urlApi = "\(config.url)action=connexion_ios&values[pseudo]=\(Pseudo)&values[mdp]=\(Password)"
+        print(urlApi)
         if let url =  URL(string: urlApi){
             URLSession.shared.dataTask(with: url){
                 (myData, response, error) in
@@ -116,7 +125,6 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
                             for value in item{
                                 let id_user = value.value as! String
                                 print(id_user)
-                                print("LALALALA ICI ICI ICI ICI LALALALA")
                                 if(id_user != ""){
                                     
                                     self.config.defaults.set(id_user, forKey: "name")

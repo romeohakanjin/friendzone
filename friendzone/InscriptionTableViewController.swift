@@ -24,16 +24,22 @@ class InscriptionTableViewController: UITableViewController {
     var success = false
     var connect_id = ""
     
+    @IBAction func retour_action(_ sender: Any)
+    {
+        //Redirection
+        DispatchQueue.main.async {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "Connexion_ID") as UIViewController
+            self.present(nextViewController, animated:true, completion:nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background_sd"))
         tableView.alwaysBounceVertical = false;
-        
-        //Navigation bar invisible
-        navigationBarTitle.setBackgroundImage(UIImage(), for: .default)
-        navigationBarTitle.shadowImage = UIImage()
-        navigationBarTitle.isTranslucent = true
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -41,6 +47,35 @@ class InscriptionTableViewController: UITableViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableV.insertSubview(blurEffectView, at: 0)
         
+        //Enlever le clavier
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let clavier = UIToolbar(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30)))
+        clavier.barStyle = UIBarStyle.default
+        view.addGestureRecognizer(tap)
+        
+        //Design textfield
+        bottomBorder(textField: pseudo_input)
+        bottomBorder(textField: password_input)
+        bottomBorder(textField: email_input)
+        bottomBorder(textField: phone_input)
+    }
+    
+    func bottomBorder(textField : UITextField)
+    {
+        //Deisgn textfield
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.cyan.cgColor
+        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height:textField.frame.height)
+        border.borderWidth = width
+        textField.layer.addSublayer(border)
+        textField.layer.masksToBounds = true
+    }
+    
+    func dismissKeyboard()
+    {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     @IBAction func signIn(_ sender: Any) {
