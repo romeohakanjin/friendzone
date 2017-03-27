@@ -22,8 +22,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     
     var sourceLocation = CLLocationCoordinate2D()
     var destinationLocation = CLLocationCoordinate2D()
-    var annotation = MKPointAnnotation()
+    var annotation = MKAnnotationView()
     var config = Config()
+    
+    var endroits: [Dictionary<String, Any>] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +54,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             //AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
             
             //Marker
-            let endroits = [
+            endroits = [
                 ["title": "New York, NY", "latitude": 40.713054, "longitude": -74.007228],
                 ["title": "Shanghai, CH", "latitude": 31.2222200, "longitude": 121.4580600],
                 ["title": "Paris, FR", "latitude": 48.866667, "longitude": 2.333333],
@@ -61,12 +63,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             
             for marker in endroits
             {
-                let annotation = MKPointAnnotation()
-                annotation.title = marker["title"] as? String
-                annotation.coordinate = CLLocationCoordinate2D(latitude: marker["latitude"] as! Double, longitude: marker["longitude"] as! Double)
+                //Création d'un marqueur pour chaque endroits
+                let annot = MKPointAnnotation()
+                annot.title = marker["title"] as? String
+                annot.coordinate = CLLocationCoordinate2D(latitude: marker["latitude"] as! Double, longitude: marker["longitude"] as! Double)
+                
+                //ajout des informations de la pos dans MKAnnotationView
+                annotation.annotation = annot
+//                let btn = UIButton(type: .detailDisclosure)
+//                annotation.rightCalloutAccessoryView = btn
+//                annotation.isEnabled = true
                 
                 //Ajout du marker
-                mapView.addAnnotation(annotation)
+                mapView.addAnnotation(annotation.annotation!)
                 
                 //AJout lat long pour l'itinéraire
                 destinationLocation.latitude = marker["latitude"] as! Double
@@ -125,8 +134,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         sourceLocation.latitude = CLLocationDegrees(lat)
         sourceLocation.longitude = CLLocationDegrees(long)
         
-        print(annotation.coordinate.longitude)
-        createRoute(sourceLoc: sourceLocation, sourceDest: annotation.coordinate)
+        print(sourceLocation.latitude)
+        print(sourceLocation.longitude)
+        print(annotation.annotation?.coordinate.longitude)
+        print(annotation.annotation?.coordinate.latitude)
+        createRoute(sourceLoc: sourceLocation, sourceDest: (annotation.annotation?.coordinate)!)
         
         let newRegion = MKCoordinateRegion(center:sourceLocation , span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(newRegion, animated: true)
@@ -135,10 +147,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     func createRoute(sourceLoc : CLLocationCoordinate2D, sourceDest : CLLocationCoordinate2D)
     {
         let request = MKDirectionsRequest()
-        
-        print(sourceDest.latitude)
-        print("&&&&&")
-        print(sourceDest.longitude)
         
         // parametre de la requete
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLoc.latitude, longitude: sourceLoc.longitude), addressDictionary: nil))
@@ -189,7 +197,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         
         return renderer
     }
-
     /*
     // MARK: - Navigation
 
