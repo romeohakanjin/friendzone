@@ -70,9 +70,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
                 
                 //ajout des informations de la pos dans MKAnnotationView
                 annotation.annotation = annot
-//                let btn = UIButton(type: .detailDisclosure)
-//                annotation.rightCalloutAccessoryView = btn
-//                annotation.isEnabled = true
                 
                 //Ajout du marker
                 mapView.addAnnotation(annotation.annotation!)
@@ -196,6 +193,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         renderer.lineWidth = 1
         
         return renderer
+    }
+
+    //Ajout du bouton dans la notif
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if !(annotation is MKUserLocation) {
+            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.hash))
+            
+            let rightButton = UIButton(type: .contactAdd)
+            rightButton.tag = annotation.hash
+            
+            pinView.animatesDrop = true
+            pinView.canShowCallout = true
+            pinView.rightCalloutAccessoryView = rightButton
+            
+            return pinView
+        }
+        else {
+            return nil
+        }
     }
     /*
     // MARK: - Navigation
