@@ -2,8 +2,8 @@
 //  MapViewController.swift
 //  friendzone
 //
-//  Created by Julien on 04/04/2017.
-//  Copyright © 2017 rhakanjin. All rights reserved.
+//  Created by Julien on 06/03/2017.
+//  Copyright © 2017 julien. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
-
+    
     
     @IBOutlet weak var mapView: MKMapView!
     var locationManager = CLLocationManager()
@@ -22,29 +22,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     
     var sourceLocation = CLLocationCoordinate2D()
     var destinationLocation = CLLocationCoordinate2D()
-    var annotation = MKAnnotationView()
+    var annotation = MKPointAnnotation()
     var config = Config()
     
-    var success = false
-    var id_user_co = ""
-    var endroits_user = [Int: [String: String]]()
+    @IBOutlet weak var btnPartage: UISwitch!
+    @IBOutlet weak var LabelPartage: UILabel!
     
     override func viewDidLoad() {
-        if let name = self.config.defaults.string(forKey: "name")
-        {
-            id_user_co = name
-        }
-        loadData()
-        
-        sleep(3)
-        
         super.viewDidLoad()
-
+        getPartage()
         mapView.delegate = self
         locationManager.delegate = self
         //Demande autorisation
         locationManager.requestAlwaysAuthorization()
-
+        
+        
+        
+        if let name = self.config.defaults.string(forKey: "name")
+        {
+            print("----------")
+            print(name)
+        }
         
         //Si l'app est autorisé
         if (CLLocationManager.locationServicesEnabled())
@@ -58,30 +56,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             //Fait vibrer le tél
             //AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
             
-            var i=0
+            //Marker
+            let endroits = [
+                ["title": "New York, NY", "latitude": 40.713054, "longitude": -74.007228],
+                ["title": "Shanghai, CH", "latitude": 31.2222200, "longitude": 121.4580600],
+                ["title": "Paris, FR", "latitude": 48.866667, "longitude": 2.333333],
+                ["title": "test", "latitude": 48.8492, "longitude": 2.2978],
+                ]
             
-            //while(i <= self.endroits_user.count)
-            for (key, arr) in self.endroits_user
+            for marker in endroits
             {
-                print("ICI QUIL FAUT REGARDER")
-                print(arr["latitude"]!)
-                print(arr["longitude"]!)
-                
-                let annot = MKPointAnnotation()
-                annot.title = arr["title"]
-                annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
-                
-                annotation.annotation = annot
+                let annotation = MKPointAnnotation()
+                annotation.title = marker["title"] as? String
+                annotation.coordinate = CLLocationCoordinate2D(latitude: marker["latitude"] as! Double, longitude: marker["longitude"] as! Double)
                 
                 //Ajout du marker
-                mapView.addAnnotation(annotation.annotation!)
+                mapView.addAnnotation(annotation)
                 
                 //AJout lat long pour l'itinéraire
-                destinationLocation.latitude = Double(arr["longitude"] ?? "") ?? 0.0
-                destinationLocation.longitude = Double(arr["longitude"] ?? "") ?? 0.0
+                destinationLocation.latitude = marker["latitude"] as! Double
+                destinationLocation.longitude = marker["longitude"] as! Double
                 
-                
-                i += 1
             }
         }
             
@@ -93,7 +88,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -101,6 +96,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
+        print("UPDATA")
+        
         //Permet d'avoir la position actuelle de l'user
         var location: AnyObject? = locations.last
         currentLatitude = (location?.coordinate.latitude)!
@@ -133,12 +130,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         sourceLocation.latitude = CLLocationDegrees(lat)
         sourceLocation.longitude = CLLocationDegrees(long)
         
-        print(sourceLocation.latitude)
-        print(sourceLocation.longitude)
-        
-        print(annotation.annotation?.coordinate.longitude)
-        print(annotation.annotation?.coordinate.latitude)
-        createRoute(sourceLoc: sourceLocation, sourceDest: (annotation.annotation?.coordinate)!)
+        print(annotation.coordinate.longitude)
+        createRoute(sourceLoc: sourceLocation, sourceDest: annotation.coordinate)
         
         let newRegion = MKCoordinateRegion(center:sourceLocation , span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(newRegion, animated: true)
@@ -147,6 +140,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     func createRoute(sourceLoc : CLLocationCoordinate2D, sourceDest : CLLocationCoordinate2D)
     {
         let request = MKDirectionsRequest()
+        
+        print(sourceDest.latitude)
+        print("&&&&&")
+        print(sourceDest.longitude)
         
         // parametre de la requete
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: sourceLoc.latitude, longitude: sourceLoc.longitude), addressDictionary: nil))
@@ -197,96 +194,178 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         
         return renderer
     }
-
-    //Ajout du bouton dans la notif
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if !(annotation is MKUserLocation) {
-            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.hash))
-            
-            let rightButton = UIButton(type: .contactAdd)
-            rightButton.tag = annotation.hash
-            
-            pinView.animatesDrop = true
-            pinView.canShowCallout = true
-            pinView.rightCalloutAccessoryView = rightButton
-            
-            return pinView
-        }
-        else {
-            return nil
-        }
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    public func loadData() ->Bool
-    {
-        let urlApi = "\(config.url)action=user_position&values[id]=\(id_user_co)"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func getPartage() {
         
-        if let url =  URL(string: urlApi){
-            URLSession.shared.dataTask(with: url){
-                (myData, response, error) in
-                //guard inverse de if
-                guard let myData = myData, error == nil else{
-                    //Pas de data ou error
-                    print("error")
+        var id_co = ""
+        
+        if let name = self.config.defaults.string(forKey: "name")
+        {
+            id_co = name
+        }
+        
+        let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=amis_liste&values[id]=\(id_co)"
+        if let url = URL(string: url){
+            URLSession.shared.dataTask(with: url) { (Mdata, res, err) in
+                
+                guard let Mdata = Mdata , err == nil else
+                {
                     return
                 }
                 
                 do{
-                    let root = try JSONSerialization.jsonObject(with: myData, options: .allowFragments)
                     
-                    if let json = root as? [ String: AnyObject]
-                    {
-                        if let result = json["result"] as? [ [String : String] ]
-                        {
-                            var i = 0
-                            for entry in result
-                            {
-                                if let idAmiEntry  = entry["id_ami"] as String?,
-                                    let idUserEntry  = entry["id_user"] as String?,
-                                    let nomAmi  = entry["nom_ami"] as String?,
-                                    let prenomAmi  = entry["prenom_ami"] as String?,
-                                    let tel  = entry["tel"] as String?,
-                                    let pseudoAmi  = entry["pseudo_ami"] as String?,
-                                    let longAmi  = entry["long_ami"] as String?,
-                                    let latAmi  = entry["lat_ami"] as String?
-                                    
-                                    
+                    let json = try JSONSerialization.jsonObject(with: Mdata, options: .allowFragments)
+                    var part = "1"
+                    if let root = json as? [String : AnyObject]{
+                        if let feed = root["result"] as? [[String : AnyObject]]{
+                            for item in feed {
+                                
+                                if let item = item["par"]
                                 {
-                                    /*print(idAmiEntry)
-                                     print(idUserEntry)
-                                     print(tel)
-                                     print(pseudoAmi)*/
-                                    self.endroits_user[i] = ["title": nomAmi+" "+prenomAmi, "latitude": latAmi, "longitude": longAmi]
-                                    i += 1
+                                    if item as! String == "0" {
+                                        part = "0"
+                                    }
                                 }
+                                else
+                                {
+                                    print("Other")
+                                }
+                                
                             }
-                            print("ICI ENDROIT USER")
-                            print(self.endroits_user)
                         }
                     }
                     
-                }
-                catch{
+                    if(part == "1"){
+                        DispatchQueue.main.async(execute:{
+                            self.LabelPartage.text = "Supprimer ma position"
+                            self.btnPartage.setOn(true, animated: true)
+                        })
+                    }else{
+                        DispatchQueue.main.async(execute:{
+                            self.LabelPartage.text = "Partager ma position"
+                            self.btnPartage.setOn(false, animated: true)
+                        })
+                    }
                     
-                    let nsError = error as NSError
-                    print(nsError.localizedDescription)
+                }catch{
                     
                 }
-                
                 }.resume()
         }
+    }
+    
+    @IBAction func SendPart(_ sender: Any) {
         
-        return self.success
+        PartagePos()
         
     }
-
+    
+    public func PartagePos()
+    {
+        
+        var id_co = ""
+        var partage = ""
+        
+        if(self.btnPartage.isOn){
+            partage = "1"
+        }else{
+            partage = "0"
+        }
+        
+        
+        if let name = self.config.defaults.string(forKey: "name")
+        {
+            id_co = name
+        }
+        
+        let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php/?fichier=users&action=Update_Share_Pos&values[par]=\(partage)&values[id]=\(id_co)"
+        
+        if let url = URL(string: url){
+            
+            URLSession.shared.dataTask(with: url) { (Mdata, res, err) in
+                
+                guard let Mdata = Mdata , err == nil else
+                {
+                    return
+                }
+                
+                do{
+                    
+                    let json = try JSONSerialization.jsonObject(with: Mdata, options: .allowFragments)
+                    
+                    if let root = json as? [String : AnyObject]{
+                        if let feed = root["result"] as? [[String : AnyObject]]{
+                            for item in feed {
+                                
+                                if let item = item["par"]
+                                {
+                                    print("item : \(item)")
+                                }
+                                else
+                                {
+                                    print("Other")
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                }catch{
+                    
+                }
+                }.resume()
+        }
+    }
+    
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
