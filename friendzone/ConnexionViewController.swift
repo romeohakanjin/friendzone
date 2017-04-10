@@ -88,6 +88,7 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    
     @IBAction func connexionClick(_ sender: Any) {
         let pseudo : String = pseudo_input.text!
         let password : String = password_input.text!
@@ -159,6 +160,11 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                     }
+                    else{
+                        DispatchQueue.main.async {
+                            self.alertPrint(TitleController: "Erreur", MsgController: "Identifiant ou mot de passe incorrect", Titlealt: "Fermer")
+                        }
+                    }
                     
                     
                 }
@@ -176,5 +182,9 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
+    func alertPrint(TitleController: String,MsgController: String, Titlealt: String) -> Void {
+        let alert = UIAlertController(title: TitleController, message: MsgController,preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Titlealt, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
