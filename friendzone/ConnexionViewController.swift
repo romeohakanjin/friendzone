@@ -24,11 +24,24 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        //Si l'utilisateur est connecté alors on le redirige vers l'activity map
+        if (self.config.defaults.string(forKey: "name") != nil)
+        {
+            //Redirection
+            DispatchQueue.main.async {
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainStoryboard_ID") as UIViewController
+                self.present(nextViewController, animated:true, completion:nil)
+            }
+        }
+        else{
+            print("NO RIEN DE RIEN")
+        }
         
-        //Enleve une clé du dico
-        config.defaults.removeObject(forKey: "name")
-        print(config.defaults.dictionaryRepresentation().keys.count)
+        
+
+        super.viewDidLoad()
         
         //Flou
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
@@ -56,11 +69,6 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
         password_input.inputAccessoryView = clavier
         
         view.addGestureRecognizer(tap)
-        
-        
-        
-        //pseudo_input.text = "try@me.com"
-        //password_input.text = "test"
     }
     
     func bottomBorder(textField : UITextField)
@@ -90,10 +98,9 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
             
             if(pseudo.isEmpty || password.isEmpty){
                 success = false
-                print("lol?")
+                print("empty?")
             }
             else if(success){
-                print("miaou")
                 print("Id de la personne co : \(connect_id)")
             }
         }

@@ -38,7 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         }
         loadData()
         getPartage()
-        sleep(1)
+        sleep(2)
         
         super.viewDidLoad()
         
@@ -62,28 +62,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             
             var i=0
             
-            //while(i <= self.endroits_user.count)
-            for (key, arr) in self.endroits_user
-            {
-                print("ICI QUIL FAUT REGARDER")
-                print(arr["latitude"]!)
-                print(arr["longitude"]!)
+            //On fecth les data de endroits_user pour les marqueurs
+            if(!self.endroits_user.isEmpty){
+                for (key, arr) in self.endroits_user
+                {
+                    print("ICI QUIL FAUT REGARDER")
+                    print(arr["latitude"]!)
+                    print(arr["longitude"]!)
+                    
+                    let annot = MKPointAnnotation()
+                    annot.title = arr["title"]
+                    annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
                 
-                let annot = MKPointAnnotation()
-                annot.title = arr["title"]
-                annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
+                    annotation.annotation = annot
                 
-                annotation.annotation = annot
+                    //Ajout du marker
+                    mapView.addAnnotation(annotation.annotation!)
                 
-                //Ajout du marker
-                mapView.addAnnotation(annotation.annotation!)
+                    //AJout lat long pour l'itinéraire
+                    destinationLocation.latitude = Double(arr["longitude"] ?? "") ?? 0.0
+                    destinationLocation.longitude = Double(arr["longitude"] ?? "") ?? 0.0
                 
-                //AJout lat long pour l'itinéraire
-                destinationLocation.latitude = Double(arr["longitude"] ?? "") ?? 0.0
-                destinationLocation.longitude = Double(arr["longitude"] ?? "") ?? 0.0
-                
-                
-                i += 1
+                    i += 1
+                }
+            }
+            else{
+                print("Tableau d'amis vide")
             }
         }
             
@@ -138,9 +142,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         print(sourceLocation.latitude)
         print(sourceLocation.longitude)
         
-        print(annotation.annotation?.coordinate.longitude)
-        print(annotation.annotation?.coordinate.latitude)
-        createRoute(sourceLoc: sourceLocation, sourceDest: (annotation.annotation?.coordinate)!)
+        if(!self.endroits_user.isEmpty){
+            print(annotation.annotation?.coordinate.longitude)
+            print(annotation.annotation?.coordinate.latitude)
+            createRoute(sourceLoc: sourceLocation, sourceDest: (annotation.annotation?.coordinate)!)
+
+        }
+        else{
+            print("Tableau d'amis vide donc pas de route")
+        }
+        
         
         let newRegion = MKCoordinateRegion(center:sourceLocation , span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(newRegion, animated: true)
