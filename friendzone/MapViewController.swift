@@ -27,6 +27,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     var success = false
     var id_user_co = ""
     var endroits_user = [Int: [String: String]]()
+    var latitude_user : Double = 0.0
+    var longitude_user : Double = 0.0
+    var libelle_lieu : String = ""
     
     @IBOutlet weak var btnPartage: UISwitch!
     @IBOutlet weak var LabelPartage: UILabel!
@@ -39,6 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         loadData()
         getPartage()
         sleep(2)
+        
         
         super.viewDidLoad()
         
@@ -229,14 +233,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             return nil
         }
     }
-    /*
-     // MARK: - Navigation
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     public func loadData() ->Bool
     {
@@ -424,4 +420,42 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         }
     }
     
+    @IBAction func partagerUnLieu(_ sender: UIButton) {
+        
+        
+        latitude_user = locationManager.location?.coordinate.latitude as Double!
+        longitude_user = locationManager.location?.coordinate.longitude as Double!
+        
+        print(latitude_user)
+        print(longitude_user)
+        
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: "Ajout d'un lieu", message: "Saisir le nom du lieu", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            self.libelle_lieu = textField?.text as! String
+            
+            if(self.libelle_lieu != ""){
+                print(self.libelle_lieu)
+            }
+            else{
+                let alert = UIAlertController(title: "Erreur", message: "Nom de lieu incorrect", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Fermer", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }))
+        
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
+        
+        
+        
+    }
 }
