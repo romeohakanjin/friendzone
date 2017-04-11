@@ -15,6 +15,10 @@ class DeconnexionViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
+        
         //Enleve une clé du dico
         config.defaults.removeObject(forKey: "name")
         print(config.defaults.dictionaryRepresentation().keys.count)

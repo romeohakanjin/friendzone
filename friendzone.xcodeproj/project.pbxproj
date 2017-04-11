@@ -19,6 +19,7 @@
 		06C8E61D1E6D545A00ACE23C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C8E61C1E6D545A00ACE23C /* AppDelegate.swift */; };
 		06C8E6241E6D545A00ACE23C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C8E6221E6D545A00ACE23C /* Main.storyboard */; };
 		06C8E6291E6D545A00ACE23C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06C8E6271E6D545A00ACE23C /* LaunchScreen.storyboard */; };
+		D01671361E9BD0DC007893C7 /* ListeLieuxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01671351E9BD0DC007893C7 /* ListeLieuxViewController.swift */; };
 		F97962A71E7FCE9900B15156 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F97962A61E7FCE9900B15156 /* Assets.xcassets */; };
 		F9A89BF91E7FC8650014CE9C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9A89BF81E7FC8650014CE9C /* Launch Screen.storyboard */; };
 		F9D96B2E1E769C0000C679B0 /* DesignBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D96B2D1E769C0000C679B0 /* DesignBarViewController.swift */; };
@@ -40,6 +41,7 @@
 		06C8E6231E6D545A00ACE23C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		06C8E6281E6D545A00ACE23C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06C8E62A1E6D545A00ACE23C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D01671351E9BD0DC007893C7 /* ListeLieuxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListeLieuxViewController.swift; sourceTree = "<group>"; };
 		F97962A61E7FCE9900B15156 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9A89BF81E7FC8650014CE9C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F9D96B2D1E769C0000C679B0 /* DesignBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignBarViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				06B546AD1E6D9953007D6745 /* InscriptionTableViewController.swift */,
 				06B5469D1E6D5DFD007D6745 /* ListeAmisTableViewController.swift */,
 				06B546961E6D56E5007D6745 /* MapViewController.swift */,
+				D01671351E9BD0DC007893C7 /* ListeLieuxViewController.swift */,
 				06B546AF1E6D9FCB007D6745 /* ProfilTableViewController.swift */,
 				06C8E6221E6D545A00ACE23C /* Main.storyboard */,
 				F97962A61E7FCE9900B15156 /* Assets.xcassets */,
@@ -138,7 +141,7 @@
 				TargetAttributes = {
 					06C8E6181E6D545A00ACE23C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = ABN3JCH3Q3;
+						DevelopmentTeam = 9M5ZM4L2H6;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01671361E9BD0DC007893C7 /* ListeLieuxViewController.swift in Sources */,
 				06B546AA1E6D6D9F007D6745 /* ConnexionViewController.swift in Sources */,
 				06C8E61D1E6D545A00ACE23C /* AppDelegate.swift in Sources */,
 				06B546B01E6D9FCB007D6745 /* ProfilTableViewController.swift in Sources */,
@@ -317,11 +321,12 @@
 		06C8E62E1E6D545A00ACE23C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ABN3JCH3Q3;
+				DEVELOPMENT_TEAM = 9M5ZM4L2H6;
 				INFOPLIST_FILE = friendzone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.julien.FriendZone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhakanjin.FriendZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -330,11 +335,12 @@
 		06C8E62F1E6D545A00ACE23C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ABN3JCH3Q3;
+				DEVELOPMENT_TEAM = 9M5ZM4L2H6;
 				INFOPLIST_FILE = friendzone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.julien.FriendZone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhakanjin.FriendZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

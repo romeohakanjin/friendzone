@@ -24,19 +24,27 @@ class ConnexionViewController: UIViewController, UITextFieldDelegate {
     
     
     override func viewDidLoad() {
+        
         //Si l'utilisateur est connecté alors on le redirige vers l'activity map
-        if (self.config.defaults.string(forKey: "name") != nil)
-        {
-            //Redirection
-            DispatchQueue.main.async {
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        if(config.defaults.dictionaryRepresentation().keys.count != 0){
+            if (self.config.defaults.string(forKey: "name") != nil)
+            {
+                //Redirection
+                DispatchQueue.main.async {
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                    
+                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainStoryboard_ID") as UIViewController
+                    self.present(nextViewController, animated:true, completion:nil)
+                }
                 
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainStoryboard_ID") as UIViewController
-                self.present(nextViewController, animated:true, completion:nil)
             }
+            else{
+                print("NO RIEN DE RIEN")
+            }
+
         }
         else{
-            print("NO RIEN DE RIEN")
+        
         }
         
         
