@@ -57,11 +57,12 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
             //AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
             
             var i=0
-            
             //On fecth les data de endroits_user pour les marqueurs
             if(!self.lieu_user.isEmpty){
                 for (key, arr) in self.lieu_user
                 {
+                    print("AVANT CE QU'IL FAUT REGARDER")
+                    print(arr)
                     print("ICI QUIL FAUT REGARDER")
                     print(arr["latitude"]!)
                     print(arr["longitude"]!)
@@ -71,7 +72,8 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
                     annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
                     
                     annotation.annotation = annot
-                    
+                    print("ici annot")
+                    print(annot.coordinate)
                     //Ajout du marker
                     mapView.addAnnotation(annotation.annotation!)
                     
@@ -247,7 +249,6 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
                     {
                         if let result = json["result"] as? [ [String : AnyObject] ]
                         {
-                            
                             var i = 0
                             for entry in result
                             {
@@ -256,15 +257,13 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
                                     let libelle  = entry["libelle"] as! String?,
                                     let adresse  = entry["adresse"] as! String?,
                                     let longi  = entry["longi"] as! String?,
-                                    let lat  = entry["lat"] as! String?
+                                    let lat  = entry["lat"] as! String?{
                                     
-                                {
-                                    self.lieu_user[i] = ["title": libelle, "latitude": lat, "longitude": longi]
-                                    i += 1
+                                        self.lieu_user[i] = ["title": libelle, "latitude": lat, "longitude": longi]
+                                        i += 1
                                 }
+                                
                             }
-                            print("ICI LIEU USER")
-                            print(self.lieu_user)
                         }
                     }
                     

@@ -1,19 +1,3 @@
-//
-//  DataBase.swift
-//  TD-ApiExo
-//
-//  Created by Francis on 30/01/2017.
-//  Copyright © 2017 Francis C. All rights reserved.
-//
-
-//
-//  DataBase.swift
-//  TD-ApiExo
-//
-//  Created by Francis on 30/01/2017.
-//  Copyright © 2017 FriendZone Corporation. All rights reserved.
-//
-
 import UIKit
 import Contacts
 
@@ -398,6 +382,7 @@ class DataBaseTableAmis: NSObject {
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
+
 
 
 

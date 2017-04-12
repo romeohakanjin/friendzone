@@ -444,6 +444,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             
             if(self.libelle_lieu != ""){
                 print(self.libelle_lieu)
+                self.getAddressWithLatlong()
             }
             else{
                 let alert = UIAlertController(title: "Erreur", message: "Nom de lieu incorrect", preferredStyle: .alert)
@@ -457,5 +458,80 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         
         
         
+    }
+    
+    //Have the address according to the longitude and latitude of the online user
+    func getAddressWithLatlong(){
+        let longitude :CLLocationDegrees = longitude_user
+        let latitude :CLLocationDegrees = latitude_user
+        var address_user : String = ""
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            
+            if (error != nil) {
+                print("Reverse geocoder failed with error\(error?.localizedDescription)")
+                return
+            }
+            
+            if ((placemarks?.count)! > 0) {
+                let pm = placemarks?[0] as! CLPlacemark
+                address_user = pm.locality as! String
+                
+                self.shareLocation(adresse : address_user)
+            }
+            else {
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+    
+    //Permet d'ajouter un lieu
+    public func shareLocation(adresse : String){
+        
+        var urlApi = "\(config.url)action=share_location_ios&values[id_user]=\(self.id_user_co)&values[libelle]=\(self.libelle_lieu)&values[adresse]=\(adresse)&values[longi]=\(self.longitude_user)&values[lat]=\(self.latitude_user)"
+        urlApi = urlApi.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        
+        if let url =  URL(string: urlApi){
+            URLSession.shared.dataTask(with: url){(myData, response, error) in
+                guard let myData = myData, error == nil else{
+                    print("error")
+                    return
+                }
+                do{
+                    let root = try JSONSerialization.jsonObject(with: myData, options: .allowFragments)
+                    if let json = root as? [String : AnyObject]{
+                        for item in json{
+                            //Affichage message en fonction du code erreur récupéré
+                            let error_code = item.value as! String
+                            var titleAlert = ""
+                            var msgAlert = ""
+                            if(error_code == "ok"){
+                                titleAlert = "Succès"
+                                msgAlert = "Lieu partagé!"
+                                
+                            }else{
+                                titleAlert = "Echec"
+                                msgAlert = "Une erreur est apparue. Impossible d'ajouter le lieu. Réessayez ultérieurement!"
+                                
+                            }
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: titleAlert, message: msgAlert, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Fermer", style: .default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                               
+                            }
+                        }
+                    }
+                }
+                catch{
+                    let errorCatched = error as NSError
+                    print("error")
+                    print(errorCatched.localizedDescription)
+                    print("end error")
+                }
+                }.resume()
+        }
     }
 }
