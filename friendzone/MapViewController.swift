@@ -76,7 +76,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
                     
                     let annot = MKPointAnnotation()
                     annot.title = arr["title"]
-                    annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
+                    annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["latitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
                 
                     annotation.annotation = annot
                 
@@ -84,7 +84,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
                     mapView.addAnnotation(annotation.annotation!)
                 
                     //AJout lat long pour l'itinéraire
-                    destinationLocation.latitude = Double(arr["longitude"] ?? "") ?? 0.0
+                    destinationLocation.latitude = Double(arr["latitude"] ?? "") ?? 0.0
                     destinationLocation.longitude = Double(arr["longitude"] ?? "") ?? 0.0
                 
                     i += 1

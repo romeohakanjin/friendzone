@@ -61,15 +61,9 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
             if(!self.lieu_user.isEmpty){
                 for (key, arr) in self.lieu_user
                 {
-                    print("AVANT CE QU'IL FAUT REGARDER")
-                    print(arr)
-                    print("ICI QUIL FAUT REGARDER")
-                    print(arr["latitude"]!)
-                    print(arr["longitude"]!)
-                    
                     let annot = MKPointAnnotation()
                     annot.title = arr["title"]
-                    annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["longitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
+                    annot.coordinate = CLLocationCoordinate2D(latitude: Double(arr["latitude"] ?? "") ?? 0.0, longitude: Double(arr["longitude"] ?? "") ?? 0.0)
                     
                     annotation.annotation = annot
                     print("ici annot")
@@ -78,7 +72,7 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
                     mapView.addAnnotation(annotation.annotation!)
                     
                     //AJout lat long pour l'itinéraire
-                    destinationLocation.latitude = Double(arr["longitude"] ?? "") ?? 0.0
+                    destinationLocation.latitude = Double(arr["latitude"] ?? "") ?? 0.0
                     destinationLocation.longitude = Double(arr["longitude"] ?? "") ?? 0.0
                     
                     i += 1
