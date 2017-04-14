@@ -56,7 +56,6 @@ class DataBaseTableAmis: NSObject {
             var cnContacts = [CNContact]()
             
             
-            
             do {
                 
                 try store.enumerateContacts(with: request){ (contact, cursor) -> Void in
@@ -68,6 +67,9 @@ class DataBaseTableAmis: NSObject {
             }
             
             for contact in cnContacts {
+                if(contact.phoneNumbers.isEmpty){
+                    continue
+                }
                 let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
                 requete += "&values[array][]=\(nb)"
             }
@@ -272,7 +274,7 @@ class DataBaseTableAmis: NSObject {
                                             return
                                             
                                         }
-                                        
+                                        //je vsais okeey
                                         
                                         let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey,CNContactImageDataKey,CNContactImageDataAvailableKey] as [Any]
                                         let request = CNContactFetchRequest(keysToFetch: keysToFetch as! [CNKeyDescriptor])

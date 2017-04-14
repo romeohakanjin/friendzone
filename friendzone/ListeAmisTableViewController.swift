@@ -5,6 +5,7 @@
 //  Created by Julien on 06/03/2017.
 //  Copyright © 2017 FriendZone Coporation. All rights reserved.
 //
+
 import UIKit
 
 class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTableAmis {
@@ -193,5 +194,4 @@ class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTable
         
         self.present(alert, animated: true, completion: nil)
         
-    }
-}
+    }}

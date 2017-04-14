@@ -50,6 +50,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         locationManager.delegate = self
         //Demande autorisation
         locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
         
         
         //Si l'app est autorisé
@@ -119,9 +121,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         centerMap(Float32(currentLatitude), long: Float32(currentLongitude))
         
         mapView.showsUserLocation = true
-        
+        /*
         print(currentLatitude)
         print(currentLongitude)
+        print("CA BOUGE CA BOUGE CA BOUGE")
+        print("CA BOUGE CA BOUGE CA BOUGE")
+        print("CA BOUGE CA BOUGE CA BOUGE")
+        print("CA BOUGE CA BOUGE CA BOUGE")
+        
+        let alert = UIAlertController(title: "information", message: "CA BOUGE CA BOUGE", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Fermer", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        */
+        
+        updateLocation(latitude: currentLatitude, longitude: currentLongitude);
         
     }
     
@@ -266,13 +279,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
                                     let pseudoAmi  = entry["pseudo_ami"] as String?,
                                     let longAmi  = entry["long_ami"] as String?,
                                     let latAmi  = entry["lat_ami"] as String?
-                                    
-                                    
                                 {
-                                    /*print(idAmiEntry)
-                                     print(idUserEntry)
-                                     print(tel)
-                                     print(pseudoAmi)*/
                                     self.endroits_user[i] = ["title": nomAmi+" "+prenomAmi, "latitude": latAmi, "longitude": longAmi]
                                     i += 1
                                 }
@@ -521,6 +528,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
                                 alert.addAction(UIAlertAction(title: "Fermer", style: .default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)
                                
+                            }
+                        }
+                    }
+                }
+                catch{
+                    let errorCatched = error as NSError
+                    print("error")
+                    print(errorCatched.localizedDescription)
+                    print("end error")
+                }
+                }.resume()
+        }
+    }
+    
+    //Permet d'actualiser sa position en BDD
+    public func updateLocation(latitude : Double, longitude : Double){
+        
+        var urlApi = "\(config.url)action=update_position_ios&values[id]=\(self.id_user_co)&values[lat]=\(latitude)&values[longi]=\(longitude)"
+        urlApi = urlApi.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        
+        if let url =  URL(string: urlApi){
+            URLSession.shared.dataTask(with: url){(myData, response, error) in
+                guard let myData = myData, error == nil else{
+                    print("error")
+                    return
+                }
+                do{
+                    let root = try JSONSerialization.jsonObject(with: myData, options: .allowFragments)
+                    if let json = root as? [String : AnyObject]{
+                        for item in json{
+                            //Affichage message en fonction du code erreur récupéré
+                            let error_code = item.value as! String
+                            
+                            if(error_code == "ok"){
+                                print("Succès partage position en BDD")
+                                
+                            }else{
+                                print("Echec update position")
                             }
                         }
                     }

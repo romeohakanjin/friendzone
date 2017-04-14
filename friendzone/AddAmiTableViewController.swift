@@ -5,6 +5,7 @@
 //  Created by Julien on 06/03/2017.
 //  Copyright © 2017 FrienZone Corporation. All rights reserved.
 //
+
 import UIKit
 
 class AddAmiTableViewController: UITableViewController, DataBaseDelegateTableAmis {
@@ -40,6 +41,7 @@ class AddAmiTableViewController: UITableViewController, DataBaseDelegateTableAmi
     {
         tableView.reloadData()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
