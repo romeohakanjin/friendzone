@@ -34,6 +34,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
     @IBOutlet weak var btnPartage: UISwitch!
     @IBOutlet weak var LabelPartage: UILabel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewDidLoad()
+    }
+    
     override func viewDidLoad() {
         if let name = self.config.defaults.string(forKey: "name")
         {
