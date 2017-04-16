@@ -89,18 +89,23 @@ class InscriptionTableViewController: UITableViewController {
             success = false
             print("lol? trop false")
         }
-        
-        loadData(Pseudo: pseudo, Password: password, Email: email, Phone: phone)
+        if(isPhoneValid(Phone: phone) && isEmailValid(Email: email)){
+            signIn(Pseudo: pseudo, Password: password, Email: email, Phone: phone)
+        }else{
+            DispatchQueue.main.async {
+                self.alertPrint(TitleController: "Echec", MsgController: "Une erreur est apparue. Réessayez ultérieurement", Titlealt: "Fermer", TableView: self)
+            }
+        }
         
     }
     
-    func loadData(Pseudo : String, Password : String, Email : String, Phone : String) ->Bool{
+    func signIn(Pseudo : String, Password : String, Email : String, Phone : String) ->Bool{
         if let name = self.config.defaults.string(forKey: "name")
         {
             connect_id = name
         }
         
-        let urlApi = "\(config.url)action=inscription_ios&values[nom]=testnom&values[prenom]=testprenom&values[mdp]=\(Password)&values[tel]=\(Phone)&values[pseudo]=\(Pseudo)&values[mail]=\(Email)"
+        let urlApi = "\(config.url)action=inscription_ios&values[nom]=&values[prenom]=&values[mdp]=\(Password)&values[tel]=\(Phone)&values[pseudo]=\(Pseudo)&values[mail]=\(Email)"
         if let url =  URL(string: urlApi){
             URLSession.shared.dataTask(with: url){(myData, response, error) in
                 guard let myData = myData, error == nil else{
@@ -153,4 +158,37 @@ class InscriptionTableViewController: UITableViewController {
         return self.success
     }
     
+    func alertPrint(TitleController: String,MsgController: String, Titlealt: String, TableView: UITableViewController) -> Void {
+        
+        let alert = UIAlertController(title: TitleController, message: MsgController,preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Titlealt, style: .default, handler: nil))
+        
+        TableView.present(alert, animated: true, completion: nil)
+        
+    }
+    
+//    func isPasswordValid(Password:String) -> Bool {
+//        let RegEx = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$"
+//        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+//        return verif.evaluate(with: Password)
+//    }
+    
+    func isEmailValid(Email:String) -> Bool {
+        let RegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Email)
+    }
+    
+//    func isPseudoValid(Pseudo:String) -> Bool {
+//        let RegEx = "^[a-zA-Z0-9]+([\\-'_]?[a-zA-Z0-9]+[\\-'_]?[a-zA-Z0-9]+[\\-'_]?)[a-zA-Z0-9]+$"
+//        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+//        return verif.evaluate(with: Pseudo)
+//    }
+    
+    func isPhoneValid(Phone: String) -> Bool {
+        let RegEx = "(0|\\+33|0033)[1-9][0-9]{8}"
+        let verif = NSPredicate(format:"SELF MATCHES %@", RegEx)
+        return verif.evaluate(with: Phone)
+    }
+
 }

@@ -42,14 +42,11 @@ class ProfilTableViewController: UITableViewController {
     //Action liée au bouton Modifier
     @IBAction func updateClick(_ sender: Any) {
         
-        //Penser à faire le contrôle de saisis
-        
         let name : String = name_input.text!
         let first_name : String = first_name_input.text!
         let pseudo : String = pseudo_input.text!
         let phone : String = phone_input.text!
         let mail : String = email_input.text!
-        
         
         if(updateBtn.currentTitle == "Modifier"){
             //Débloquer la modification des champs quand on arrive sur la page
@@ -60,10 +57,12 @@ class ProfilTableViewController: UITableViewController {
             self.pseudo_input.isUserInteractionEnabled = true
             updateBtn.setTitle("Enregistrer", for: .normal)
         }else if(updateBtn.currentTitle == "Enregistrer"){
+            //Les champs sont valides --> Update
             if(isNameValid(Name : name) && isPseudoValid(Pseudo: pseudo) && isNameValid(Name : first_name)  && isPhoneValid(Phone: phone) && isEmailValid(Email: mail)){
                 updateProfil(Name : name, First_Name : first_name, Pseudo : pseudo, Phone : phone, Mail : mail)
-            }else{
-                print("erreur de saisie")
+            }
+            //Les champs ne sont pas valides, on raffraichit le profil
+            else{
                 DispatchQueue.main.async {
                     self.alertPrint(TitleController: "Echec", MsgController: "Merci de respecter les conventions! [Les noms/prénoms ne peuvent pas contenir d'accent]", Titlealt: "Fermer", TableView: self)
                 }
