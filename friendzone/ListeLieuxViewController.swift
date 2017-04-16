@@ -34,7 +34,7 @@ class ListeLieuxViewController: UIViewController, CLLocationManagerDelegate , MK
             id_user_co = name
         }
         loadListLocation()
-        sleep(2)
+        sleep(1)
         
         super.viewDidLoad()
         

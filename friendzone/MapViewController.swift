@@ -46,7 +46,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         }
         loadData()
         getPartage()
-        sleep(2)
+        sleep(1)
         
         
         super.viewDidLoad()
