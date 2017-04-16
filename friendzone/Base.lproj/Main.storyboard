@@ -40,25 +40,22 @@
                                 <color key="textColor" red="0.088980130851268768" green="0.033035874366760254" blue="0.021164974197745323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clx-b5-w7i">
-                                <rect key="frame" x="16" y="580" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Liste lieux"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmL-Hl-ukF">
-                                <rect key="frame" x="113" y="567" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Liste lieux"/>
-                                <connections>
-                                    <segue destination="Fd7-fo-hhe" kind="showDetail" id="N3L-lD-dfN"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Iv-41-2gj">
                                 <rect key="frame" x="325" y="30" width="20" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="map_icon"/>
                                 <connections>
                                     <action selector="partagerUnLieu:" destination="2NE-aw-Cci" eventType="touchUpInside" id="v88-iX-ecZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmL-Hl-ukF">
+                                <rect key="frame" x="0.0" y="541" width="101" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Liste lieux">
+                                    <color key="titleColor" red="0.14300361275672913" green="0.15060305595397949" blue="0.037588268518447876" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Fd7-fo-hhe" kind="showDetail" id="N3L-lD-dfN"/>
                                 </connections>
                             </button>
                         </subviews>
