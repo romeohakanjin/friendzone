@@ -452,7 +452,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
-            self.libelle_lieu = textField?.text as! String
+            self.libelle_lieu = (textField?.text)!
             
             if(self.libelle_lieu != ""){
                 print(self.libelle_lieu)
@@ -488,8 +488,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             }
             
             if ((placemarks?.count)! > 0) {
-                let pm = placemarks?[0] as! CLPlacemark
-                address_user = pm.locality as! String
+                let pm = placemarks?[0]
+                address_user = (pm?.locality)!
                 
                 self.shareLocation(adresse : address_user)
             }
