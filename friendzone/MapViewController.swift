@@ -68,13 +68,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
             
-            //Fait vibrer le tél
-            //AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-            
             var i=0
             
             //On fecth les data de endroits_user pour les marqueurs
             if(!self.endroits_user.isEmpty){
+                //Fait vibrer le tél
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+                
                 for (key, arr) in self.endroits_user
                 {
                     print("ICI QUIL FAUT REGARDER")
