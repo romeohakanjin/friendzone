@@ -233,25 +233,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate , MKMapView
         return renderer
     }
     
-    //Ajout du bouton dans la notif
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if !(annotation is MKUserLocation) {
-            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.hash))
-            
-            let rightButton = UIButton(type: .contactAdd)
-            rightButton.tag = annotation.hash
-            
-            pinView.animatesDrop = true
-            pinView.canShowCallout = true
-            pinView.rightCalloutAccessoryView = rightButton
-            
-            return pinView
-        }
-        else {
-            return nil
-        }
-    }
-    
     public func loadData() ->Bool
     {
         let urlApi = "\(config.url)action=user_position&values[id]=\(id_user_co)"
