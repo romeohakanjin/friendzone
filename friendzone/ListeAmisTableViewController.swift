@@ -52,8 +52,8 @@ class ListeAmisTableViewController: UITableViewController, DataBaseDelegateTable
         tableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         data.delegate = self
         data.startRequeteGetURLAmis()
         tableView.reloadData()

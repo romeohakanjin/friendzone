@@ -70,13 +70,19 @@ class DataBaseTableAmis: NSObject {
                 if(contact.phoneNumbers.isEmpty){
                     continue
                 }
-                let nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
-                requete += "&values[array][]=\(nb)"
+                let fullName = CNContactFormatter.string(from: contact, style: .fullName) ?? "No Name"
+                
+                var nb = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
+                if fullName.hasPrefix("FZ"){
+                    nb = nb.replacingOccurrences(of: "+", with: "")
+                    requete += "&values[array][]=\(nb)"
+                }
+                
             }
             
             
             
-            let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php?fichier=users&action=non_friend&\(requete)&values[id_user]=\(self.id_co)"
+            let url = "http://friendzone01.esy.es/php/friendzoneapi/api/api.php?fichier=users&action=non_friend\(requete)&values[id_user]=\(self.id_co)"
             
             
             if let url = URL(string: url){
